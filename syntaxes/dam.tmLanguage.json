@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Damos",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "match": "/[A-Z]+",
+      "name": "keyword.control.dam"
+    },
+    {
+      "match": "\\$[0-9A-Fa-f]+",
+      "name": "constant.numeric.hex.dam"
+    },
+    {
+      "match": "\\{.*?\\}",
+      "name": "string.dam"
+    },
+    {
+      "match": "\\d+",
+      "name": "constant.numeric.decimal.dam"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.dam",
+          "match": "\\b((ABL,BEA,DAB,DST,EAD,EPK,EPR,FKT,FKX,FKY,KNR,MCK,PBA,PNR,PRO,REP,RFG,SGB,SND,SPC,SPW,SPX,SPY,SRC,TEL,UMR,UMV,UP,UTB,VAD,YNR))\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.dam",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.dam",
+          "match": "\\\\."
+        }
+      ]
+    }
+  },
+  "scopeName": "source.dam"
+}

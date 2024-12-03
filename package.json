@@ -1,0 +1,45 @@
+{
+  "name": "dam-language-support",
+  "displayName": "DAM Language Support",
+  "description": "Adds syntax highlighting for .DAM files which are used in the automotive industry for describing the layout of binary files contained by ECUs.",
+  "version": "0.0.1",
+  "main": "./out/extension.js",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "dam",
+        "aliases": [
+          "Damos",
+          "dam",
+          "DAM"
+        ],
+        "extensions": [
+          ".dam"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dam",
+        "scopeName": "source.dam",
+        "path": "./syntaxes/dam.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "format": "prettier . --write"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.7.2",
+    "prettier": "3.4.1"
+  }
+}
