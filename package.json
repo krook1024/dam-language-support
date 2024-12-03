@@ -2,7 +2,7 @@
   "name": "dam-language-support",
   "displayName": "DAM Language Support (for DAMOS)",
   "description": "Adds syntax highlighting for .DAM files which are used in the automotive industry for describing the layout of binary files contained by ECUs.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./out/extension.js",
   "repository": {"type": "git", "url": "https://github.com/krook1024/dam-language-support"},
   "engines": {
