@@ -21,6 +21,10 @@ working on this but this area is not well documented.
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Initial release of dam-language-support
+
+### 0.0.2
+
+Added a LICENSE.
