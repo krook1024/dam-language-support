@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - dev
 
 name: Deploy Extension
 jobs:
