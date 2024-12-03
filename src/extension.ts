@@ -2,49 +2,58 @@ import * as vscode from "vscode";
 
 const descriptions: { [key: string]: string } = {
   ABL: "ABL: End of assignment.",
-  BEA: "BEA: Author or creator of the file or settings.",
-  DAB: "DAB: Data block allocation or a specific data address.",
-  DST: "DST: Destination parameters or configuration details.",
-  EAD: "EAD: An encoded address or identifier.",
+  BEA: "BEA: Author or creator of the file.",
+  DAB: "DAB: Unknown.",
+  DST: "DST: Configuration details.",
+  EAD: "EAD: Some kind of address.",
   EPK: "EPK: A configuration parameter set.",
   EPR: "EPR: A reference to a specific environment or process.",
   FKT: "FKT: Folder structure related command.",
   FKX: "FKX: Function X-axis configuration.",
   FKY: "FKY: Function Y-axis configuration.",
   KNR: "KNR: Customer or client identification number.",
-  MCK: "MCK: Measurement or control key settings.",
-  PBA: "PBA: Physical block address or base address.",
-  PNR: "PNR: Part number or a reference to a specific product.",
-  PRO: "PRO: Project or process configuration.",
+  MCK: "MCK: Unknown.",
+  PBA: "PBA: Base address.",
+  PNR: "PNR: Part number or version.",
+  PRO: "PRO: Project configuration.",
+  REG: "REG: Axis description definition.",
   REP: "REP: Repair or replacement indicator.",
-  RFG: "RFG: Reference group or related flag.",
+  RFG: "RFG: Unknown.",
   SGB: "SGB: Unknown.",
   SND: "SND: Define memory area.",
   SPC: "SPC: Space or a specific configuration parameter.",
-  SPW: "SPW: Weighting factor or configuration details.",
-  SPX: "SPX: X-axis configuration or data.",
-  SPY: "SPY: Y-axis configuration or data.",
+  SPW: "SPW: Weighting factor.",
+  SPX: "SPX: X-axis configuration.",
+  SPY: "SPY: Y-axis configuration.",
   SPZ: "SPZ: Begin map definition.",
-  SRC: "SRC: Source-related parameter or identifier.",
+  SRC: "SRC: Create axis definition.",
   TEL: "TEL: Telephone or contact information.",
-  UMR: "UMR: Possibly usage or utilization metric.",
-  UMV: "UMV: Voltage or measurement unit.",
-  UP: "UP: Update or a specific setting identifier.",
-  UTB: "UTB: Utility or test bench configuration.",
+  UMR: "UMR: Unknown.",
+  UMV: "UMV: Unknown.",
+  UP: "UP: Unknown.",
+  UTB: "UTB: Unknown.",
   VAD: "VAD: A value address or specific identifier.",
-  YNR: "YNR: Yet another reference or identifier.",
+  YNR: "YNR: Unknown.",
 };
+
+const channel = vscode.window.createOutputChannel(
+  "dam-language-support",
+  "dam",
+);
 
 export function activate(context: vscode.ExtensionContext) {
   const hoverProvider = vscode.languages.registerHoverProvider("dam", {
     provideHover(document, position, token) {
-      const keys = Object.keys(descriptions).join("|");
-      const re = new RegExp(String.raw`\b/(${keys})\b`);
-      const range = document.getWordRangeAtPosition(position, re);
+      const range = document.getWordRangeAtPosition(
+        position,
+        /(?:^|[\s/,])([A-Z]+)(?=,|\s|$)/i,
+      );
 
       if (range) {
-        const word = document.getText(range);
-        return new vscode.Hover(descriptions[word]);
+        const word = document.getText(range).replace("/", "");
+        if (descriptions[word]) {
+          return new vscode.Hover(descriptions[word]);
+        }
       }
 
       return null;
